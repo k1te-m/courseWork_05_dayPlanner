@@ -8,16 +8,10 @@ $(document).ready(function () {
   currentD.text(time);
   
   let currentH24 = parseInt(moment().format("kk")); // gives hour in 24 hour format
-//   let currentH12 = parseInt(moment().format("h")); // gives hour in 12 hour format
-//   const whatIsThis = parseInt(moment().format("kk"));
-  let amPM = moment().format("a"); // gives am or pm based on time
-  console.log(amPM);
-  console.log(currentH24);
-//   console.log(currentH12);
-//   console.log(whatIsThis);
-  
-  
+  let currentH12 = parseInt(moment().format("H")); // gives hour in 12 hour format
 
+
+  
 
   //for loop to build daily calendar rows beginning at 9AM to 5PM, 12 + 5 = 17
   for (let hour = 9; hour <= 17; hour++) {
@@ -38,13 +32,24 @@ $(document).ready(function () {
     //hour-index/hour display conversion takes the hour-index attr from rowDiv, converts to actual hour and dipslays PM for anything after 12, sets equal to index for AM as the hours match
     let plannerHour = 0;
     let mornAft = "";
+    // if (hour > 12) {
+    //   plannerHour = hour - 12;
+    //   mornAft = "pm";
+    // } else {
+    //   plannerHour = hour;
+    //   mornAft = "am";
+    // }
     if (hour > 12) {
-      plannerHour = hour - 12;
-      mornAft = "pm";
-    } else {
-      plannerHour = hour;
-      mornAft = "am";
+        plannerHour = hour -12;
+        mornAft = "pm";
+    } else if (hour === 12) {
+        plannerHour = hour;
+        mornAft = "pm";
+    } else if (hour < 12) {
+        plannerHour = hour;
+        mornAft = "am";
     }
+    
 
     //add hour display to hourDaySpan
     hourDaySpan.text(plannerHour + mornAft);
@@ -52,7 +57,7 @@ $(document).ready(function () {
     rowD.append(timeOfDayDiv);
     timeOfDayDiv.append(hourDaySpan);
 
-    //add input section for user to dos
+    //add input section for user todos
     userInput = $("<textarea>");
     userInput.attr("type", "text");
     if (hour < currentH24) {
