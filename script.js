@@ -18,7 +18,7 @@ for (let hour = 9; hour <=17; hour++) {
    
     //build hour/time column
     let timeOfDayDiv = $("<div>")
-    timeOfDayDiv.addClass("col-md-2")
+    timeOfDayDiv.addClass("col-md-2 toD")
 
     //hour span
     const hourDaySpan = $("<span>");
@@ -43,19 +43,20 @@ for (let hour = 9; hour <=17; hour++) {
 
     //add input section for user to dos
     userInput = $("<input>");
+    userInput.addClass("userI");
     userInputDiv = $("<div>");
-    userInputDiv.addClass("col-md-9");
+    userInputDiv.addClass("col-md-9 pr-0 mr-0 pl-0 ml-0");
 
     rowD.append(userInputDiv);
     userInputDiv.append(userInput);
 
     //set-up save button column
     saveBtnDiv = $("<div>");
-    saveBtnDiv.addClass("col-md-1");
+    saveBtnDiv.addClass("col-md-1 saveSec pl-0 ml-0");
 
     //add save button
     let saveBtn = $("<i>");
-    saveBtn.attr("class", "fas fa-save");
+    saveBtn.attr("class", "fas fa-save saveBtn");
     
     //add save button to row
     rowD.append(saveBtnDiv);
