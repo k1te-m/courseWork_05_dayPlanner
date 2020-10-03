@@ -1,12 +1,4 @@
 $(document).ready(function () {
-  
-  const test = false;
-
-  if (test) {
-      currentH24 = 13;
-      currentH12 = 1;
-  }
-  
 
   //capture time from momentjs
   const time = moment().format("MMMM do YYYY");
@@ -15,12 +7,17 @@ $(document).ready(function () {
   let currentD = $("#currentDay");
   currentD.text(time);
   
-  let currentH = parseInt(moment().format("h"));
-  let amPM = moment().format("a");
+  let currentH24 = parseInt(moment().format("kk")); // gives hour in 24 hour format
+//   let currentH12 = parseInt(moment().format("h")); // gives hour in 12 hour format
+//   const whatIsThis = parseInt(moment().format("kk"));
+  let amPM = moment().format("a"); // gives am or pm based on time
   console.log(amPM);
+  console.log(currentH24);
+//   console.log(currentH12);
+//   console.log(whatIsThis);
   
   
-  
+
 
   //for loop to build daily calendar rows beginning at 9AM to 5PM, 12 + 5 = 17
   for (let hour = 9; hour <= 17; hour++) {
@@ -57,6 +54,14 @@ $(document).ready(function () {
 
     //add input section for user to dos
     userInput = $("<textarea>");
+    userInput.attr("type", "text");
+    if (hour < currentH24) {
+        userInput.addClass("past");
+    } else if (hour === currentH24) {
+        userInput.addClass("present");
+    } else {
+        userInput.addClass("future");
+    }
     userInput.addClass("description");
     userInput.attr("ppf-index", hour);
     userInputDiv = $("<div>");
@@ -77,21 +82,22 @@ $(document).ready(function () {
     rowD.append(saveBtnDiv);
     saveBtnDiv.append(saveBtn);
 
-    updatePPF(currentH, plannerHour);
-    console.log(plannerHour);
-    console.log(hour);
+    // updatePPF(currentH24, plannerHour);
+    // console.log(plannerHour);
+    // console.log(hour);
+    // console.log(currentH24);
 
   }
-
-  function updatePPF (currentH, plannerHour) {
-      if (plannerHour == currentH) {
-          userInput.addClass("present");
-      } else if (plannerHour < currentH) {
-          userInput.addClass("past");
-      } else if (plannerHour > currentH) {
-          userInput.addClass("future");
-      }
-  }
+// update past present or future based on time of day - need to utilize H24 and H12 based on plannerHour
+//   function updatePPF (currentH24, plannerHour) {
+//       if (plannerHour == currentH24) {
+//           userInput.addClass("present");
+//       } else if (plannerHour < currentH24) {
+//           userInput.addClass("past");
+//       } else if (plannerHour > currentH24) {
+//           userInput.addClass("future");
+//       }
+//   }
 
 
 
