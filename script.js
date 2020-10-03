@@ -15,13 +15,11 @@ for (let hour = 9; hour <=17; hour++) {
     let rowD = $("<div>");
     rowD.addClass("row calendar-row");
     rowD.attr("hour-index", hour);
-    // rowD.text("test");
-
+   
     //build hour/time column
     let timeOfDayDiv = $("<div>")
     timeOfDayDiv.addClass("col-md-2")
 
-    // $("#planner").append(rowD);
     //hour span
     const hourDaySpan = $("<span>");
     hourDaySpan.addClass("hourDay");
@@ -42,6 +40,34 @@ for (let hour = 9; hour <=17; hour++) {
     $("#planner").append(rowD);
     rowD.append(timeOfDayDiv);
     timeOfDayDiv.append(hourDaySpan);
+
+    //add input section for user to dos
+    userInput = $("<input>");
+    userInputDiv = $("<div>");
+    userInputDiv.addClass("col-md-9");
+
+    rowD.append(userInputDiv);
+    userInputDiv.append(userInput);
+
+    //set-up save button column
+    saveBtnDiv = $("<div>");
+    saveBtnDiv.addClass("col-md-1");
+
+    //add save button
+    let saveBtn = $("<i>");
+    saveBtn.attr("class", "fas fa-save");
+    
+    //add save button to row
+    rowD.append(saveBtnDiv);
+    saveBtnDiv.append(saveBtn);
+
+
+
+
+
+
+
+
 
 }
 
