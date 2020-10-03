@@ -7,7 +7,6 @@ $(document).ready(function () {
   currentD.text(time);
 
   let currentH24 = parseInt(moment().format("kk")); // gives hour in 24 hour format
-  let currentH12 = parseInt(moment().format("H")); // gives hour in 12 hour format
 
   //for loop to build daily calendar rows beginning at 9AM to 5PM, 12 + 5 = 17
   for (let hour = 9; hour <= 17; hour++) {
