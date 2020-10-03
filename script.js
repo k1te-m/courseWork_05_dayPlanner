@@ -1,4 +1,13 @@
 $(document).ready(function () {
+  
+  const test = false;
+
+  if (test) {
+      currentH24 = 13;
+      currentH12 = 1;
+  }
+  
+
   //capture time from momentjs
   const time = moment().format("MMMM do YYYY");
 
@@ -6,7 +15,10 @@ $(document).ready(function () {
   let currentD = $("#currentDay");
   currentD.text(time);
   
-  let currentH = moment().format("h");
+  let currentH = parseInt(moment().format("h"));
+  let amPM = moment().format("a");
+  console.log(amPM);
+  
   
   
 
@@ -50,7 +62,6 @@ $(document).ready(function () {
     userInputDiv = $("<div>");
     userInputDiv.addClass("col-md-9 pr-0 mr-0 pl-0 ml-0");
     
-
     rowD.append(userInputDiv);
     userInputDiv.append(userInput);
 
@@ -66,15 +77,22 @@ $(document).ready(function () {
     rowD.append(saveBtnDiv);
     saveBtnDiv.append(saveBtn);
 
-    updatePPF(plannerHour, currentH);
+    updatePPF(currentH, plannerHour);
+    console.log(plannerHour);
+    console.log(hour);
 
   }
 
-  function updatePPF (plannerHour, currentH) {
+  function updatePPF (currentH, plannerHour) {
       if (plannerHour == currentH) {
           userInput.addClass("present");
+      } else if (plannerHour < currentH) {
+          userInput.addClass("past");
+      } else if (plannerHour > currentH) {
+          userInput.addClass("future");
       }
   }
+
 
 
 
