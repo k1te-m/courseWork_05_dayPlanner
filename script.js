@@ -12,14 +12,14 @@ currentD.text(time);
 for (let hour = 9; hour <=17; hour++) {
 
     //build rows
-    let rowDiv = $("<div>");
+    let rowD = $("<div>");
     rowD.addClass("row calendar-row");
     rowD.attr("hour-index", hour);
     // rowD.text("test");
 
     //build hour/time column
     let timeOfDayDiv = $("<div>")
-    textC.addClass("col-md-2")
+    timeOfDayDiv.addClass("col-md-2")
 
     // $("#planner").append(rowD);
     //hour span
@@ -36,7 +36,12 @@ for (let hour = 9; hour <=17; hour++) {
         plannerHour = hour;
         mornAft = "am";
     }
-   
+
+    //add hour display to hourDaySpan
+    hourDaySpan.text(plannerHour+mornAft);
+    $("#planner").append(rowD);
+    rowD.append(timeOfDayDiv);
+    timeOfDayDiv.append(hourDaySpan);
 
 }
 
