@@ -8,25 +8,24 @@ $(document).ready(function () {
 
   let currentH24 = parseInt(moment().format("hh")); // gives hour in 24 hour format
 
-  
-  let todos = JSON.parse(localStorage.getItem("todos"));
-  console.log(todos);
+  let todos = JSON.parse(localStorage.getItem("todos")); //creates a variable for stored items
   //local storage items
   if (todos !== null) {
+    // if the value of the array is not null, the array will be populated with the todos stored items
     plannerArr = todos;
-    } else {
+  } else {
+    // otherwise populate a blank array with a placeholder
     plannerArr = new Array(9);
-    plannerArr[4] = "Test";
-    }
-  
+    plannerArr[1] = "Class Begins";
+  }
 
   //for loop to build daily calendar rows beginning at 9AM to 5PM, 12 + 5 = 17
   for (let hour = 9; hour <= 17; hour++) {
     //build rows
-    let x = hour - 9;
-    let rowD = $("<div>");
-    rowD.addClass("row calendar-row time-block");
-    rowD.attr("hour-index", hour);
+    let x = hour - 9; //establish index that will correspond to planner array and moment.js time
+    let rowD = $("<div>"); //creates new div element
+    rowD.addClass("row calendar-row time-block"); // adds class to that div element
+    rowD.attr("hour-index", hour); //adds hour-index for 12/24HR conversions
 
     //build hour/time column
     let timeOfDayDiv = $("<div>");
@@ -41,6 +40,7 @@ $(document).ready(function () {
     let mornAft = "";
 
     if (hour > 12) {
+      // Logic for 12/24HR clock conversion, ensures 9-11AM, 12-5PM
       plannerHour = hour - 12;
       mornAft = "pm";
     } else if (hour === 12) {
@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     //add input section for user todos, utilizes the hh format from moment.js, 0-23 hour format instead of , to assign past, present, future classes
     userInput = $("<textarea>");
-    userInput.attr("id", "textarea-"+x);
+    userInput.attr("id", "textarea-" + x);
     userInput.val(plannerArr[x]);
     if (hour < currentH24) {
       userInput.addClass("past");
@@ -71,7 +71,6 @@ $(document).ready(function () {
     userInput.addClass("description");
     userInputDiv = $("<div>");
     userInputDiv.addClass("col-md-9 pr-0 mr-0 pl-0 ml-0");
-    
 
     rowD.append(userInputDiv);
     userInputDiv.append(userInput);
@@ -83,34 +82,20 @@ $(document).ready(function () {
     //add save button, source FontAwesome
     let saveBtn = $("<i>");
     saveBtn.attr("class", "fas fa-save saveBtn");
-    saveBtn.attr("id", "saveMe-"+x);
+    saveBtn.attr("id", "saveMe-" + x);
     saveBtn.attr("save-index", x);
 
     //add save button to each row
     rowD.append(saveBtnDiv);
     saveBtnDiv.append(saveBtn);
   }
-
-  $(document).on("click", "i", function(event){
+  //on click event for save icon
+  $(document).on("click", "i", function (event) {
     event.preventDefault();
-    let index = $(this).attr("save-index");
-    let inputNum = "#textarea-"+index;
-    console.log(inputNum);
-    let inputValue = $(inputNum).val();
-    console.log(inputValue);  
-    plannerArr[index] = inputValue;
-    localStorage.setItem("todos", JSON.stringify(plannerArr));
-  })
-
-  
-
-  
-  
-  
-  
-  
-
-  
-
-
+    let indexS = $(this).attr("save-index"); //pulls the save-index number from save button, corresponds to the textarea- id established in loop
+    let inputNum = "#textarea-" + indexS; //pulls the id of the corresponding textarea
+    let inputValue = $(inputNum).val(); //extracts the text value from the textarea user input
+    plannerArr[indexS] = inputValue; //inserts the user input value into the planner array at the index correspodning to save-index and text-area ID
+    localStorage.setItem("todos", JSON.stringify(plannerArr)); //stores todos in local storage
+  });
 });
