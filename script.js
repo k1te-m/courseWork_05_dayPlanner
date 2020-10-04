@@ -1,16 +1,29 @@
 $(document).ready(function () {
   //capture time from momentjs
-  const time = moment().format("MMMM do YYYY");
+  const time = moment().format("MMMM Do YYYY");
 
   //display time in current day HTML section
   let currentD = $("#currentDay");
   currentD.text(time);
 
-  let currentH24 = parseInt(moment().format("kk")); // gives hour in 24 hour format
+  let currentH24 = parseInt(moment().format("hh")); // gives hour in 24 hour format
+
+  
+  let todos = JSON.parse(localStorage.getItem("todos"));
+  console.log(todos);
+  //local storage items
+  if (todos !== null) {
+    plannerArr = todos;
+    } else {
+    plannerArr = Array(9);
+    plannerArr[4] = "Test";
+    }
+  console.log(plannerArr);
 
   //for loop to build daily calendar rows beginning at 9AM to 5PM, 12 + 5 = 17
   for (let hour = 9; hour <= 17; hour++) {
     //build rows
+    let x = hour - 9;
     let rowD = $("<div>");
     rowD.addClass("row calendar-row time-block");
     rowD.attr("hour-index", hour);
@@ -44,8 +57,9 @@ $(document).ready(function () {
     rowD.append(timeOfDayDiv);
     timeOfDayDiv.append(hourDaySpan);
 
-    //add input section for user todos
+    //add input section for user todos, utilizes the hh format from moment.js, 0-23 hour format instead of , to assign past, present, future classes
     userInput = $("<textarea>");
+    userInput.attr("id", "textarea-"+x);
     userInput.attr("type", "text");
     if (hour < currentH24) {
       userInput.addClass("past");
@@ -55,7 +69,6 @@ $(document).ready(function () {
       userInput.addClass("future");
     }
     userInput.addClass("description");
-    userInput.attr("ppf-index", hour);
     userInputDiv = $("<div>");
     userInputDiv.addClass("col-md-9 pr-0 mr-0 pl-0 ml-0");
 
@@ -66,12 +79,37 @@ $(document).ready(function () {
     saveBtnDiv = $("<div>");
     saveBtnDiv.addClass("col-md-1 saveSec pl-0 ml-0");
 
-    //add save button
+    //add save button, source FontAwesome
     let saveBtn = $("<i>");
     saveBtn.attr("class", "fas fa-save saveBtn");
+    saveBtn.attr("id", "saveMe-"+x);
+    saveBtn.attr("save-index", x);
 
-    //add save button to row
+    //add save button to each row
     rowD.append(saveBtnDiv);
     saveBtnDiv.append(saveBtn);
   }
+
+  $(document).on("click", "i", function(event){
+    event.preventDefault();
+    let index = $(this).attr("save-index");
+    let inputNum = "#textarea-"+index;
+    console.log(inputNum);
+    let inputValue = $(inputNum).val();
+    console.log(inputValue);  
+    plannerArr[index] = inputValue;
+    localStorage.setItem("todos", JSON.stringify(plannerArr));
+  })
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+
 });
