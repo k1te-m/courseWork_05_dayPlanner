@@ -15,10 +15,10 @@ $(document).ready(function () {
   if (todos !== null) {
     plannerArr = todos;
     } else {
-    plannerArr = Array(9);
+    plannerArr = new Array(9);
     plannerArr[4] = "Test";
     }
-  console.log(plannerArr);
+  
 
   //for loop to build daily calendar rows beginning at 9AM to 5PM, 12 + 5 = 17
   for (let hour = 9; hour <= 17; hour++) {
@@ -60,7 +60,7 @@ $(document).ready(function () {
     //add input section for user todos, utilizes the hh format from moment.js, 0-23 hour format instead of , to assign past, present, future classes
     userInput = $("<textarea>");
     userInput.attr("id", "textarea-"+x);
-    userInput.attr("type", "text");
+    userInput.val(plannerArr[x]);
     if (hour < currentH24) {
       userInput.addClass("past");
     } else if (hour === currentH24) {
@@ -71,6 +71,7 @@ $(document).ready(function () {
     userInput.addClass("description");
     userInputDiv = $("<div>");
     userInputDiv.addClass("col-md-9 pr-0 mr-0 pl-0 ml-0");
+    
 
     rowD.append(userInputDiv);
     userInputDiv.append(userInput);
