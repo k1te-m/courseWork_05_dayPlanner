@@ -6,15 +6,13 @@ $(document).ready(function () {
   let currentD = $("#currentDay");
   currentD.text(time);
 
-  let currentH24 = parseInt(moment().format("hh")); // gives hour in 24 hour format
+  let currentH24 = parseInt(moment().format("kk")); // gives hour in hour 1-24 format
 
+  //Local Storage Array
   let todos = JSON.parse(localStorage.getItem("todos")); //creates a variable for stored items
-  //local storage items
-  if (todos !== null) {
-    // if the value of the array is not null, the array will be populated with the todos stored items
+  if (todos !== null) { // if the value of the array is not null, the array will be populated with the todos stored items
     plannerArr = todos;
-  } else {
-    // otherwise populate a blank array with a placeholder
+  } else { // otherwise populate a blank array with a placeholder
     plannerArr = new Array(9);
     plannerArr[1] = "Class Begins";
   }
@@ -39,14 +37,14 @@ $(document).ready(function () {
     let plannerHour = 0;
     let mornAft = "";
 
-    if (hour > 12) {
-      // Logic for 12/24HR clock conversion, ensures 9-11AM, 12-5PM
-      plannerHour = hour - 12;
+    // Logic for 12/24HR clock conversion, ensures 9-11AM, 12-5PM. plannerHour to be displayed in span
+    if (hour > 12) { // If hour(24 hour clock) > 12, plannerHour(to be displayed) is reduced by 12 to ensure 12 hour clock format and PM is added
+      plannerHour = hour - 12; 
       mornAft = "pm";
-    } else if (hour === 12) {
+    } else if (hour === 12) { //Needed in order to avoid noon showing as 12AM
       plannerHour = hour;
       mornAft = "pm";
-    } else if (hour < 12) {
+    } else if (hour < 12) { //If hour (24 hour clock) is less than 12, plannerHour(to be displayed) is set equal and AM is added
       plannerHour = hour;
       mornAft = "am";
     }
@@ -57,7 +55,7 @@ $(document).ready(function () {
     rowD.append(timeOfDayDiv);
     timeOfDayDiv.append(hourDaySpan);
 
-    //add input section for user todos, utilizes the hh format from moment.js, 0-23 hour format instead of , to assign past, present, future classes
+    //add input section for user todos, utilizes the hh format from moment.js, 0-23 hour format instead of 1-24, to assign past, present, future classes
     userInput = $("<textarea>");
     userInput.attr("id", "textarea-" + x);
     userInput.val(plannerArr[x]);
