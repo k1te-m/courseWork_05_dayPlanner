@@ -12,4 +12,3 @@ I would like to incorporate a day/night mode toggle within this applciation alon
 
 Once we have learned more relating to APIs I would be interested to see how I could connect this planner to other information and have a full fledged calendar/planning application. 
 
-
