@@ -12,3 +12,8 @@ I would like to incorporate a day/night mode toggle within this applciation alon
 
 Once we have learned more relating to APIs I would be interested to see how I could connect this planner to other information and have a full fledged calendar/planning application. 
 
+# Reference Materials
+I referenced the below two public repositories found online for ideas on how to build 12HR/24HR for past, present, and future assignments and local storage retrieval. All code written is my own, nothing was copy/pasted. 
+
+[Ryan Ellingson Script](https://github.com/RyanEllingson/Day-Planner/blob/master/assets/js/script.js)
+[Gabe Pettus Script](https://github.com/gabepettus/DayPlanner/blob/master/script.js)
