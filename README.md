@@ -1,6 +1,6 @@
 # courseWork_05_dayPlanner
 
-[a link](https://k1te-m.github.io/courseWork_05_dayPlanner/)
+[GitHub Pages Deployment](https://k1te-m.github.io/courseWork_05_dayPlanner/)
 
 # Description
 Using JQuery, the script.js file dynamically builds a daily planner for workday beginning at 9AM and ending at 5PM. Users are able to enter information into the textarea and when the save button is clicked, the value is stored within the browser's local storage for later retrieval. 
