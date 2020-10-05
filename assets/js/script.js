@@ -10,9 +10,11 @@ $(document).ready(function () {
 
   //Local Storage Array
   let todos = JSON.parse(localStorage.getItem("todos")); //creates a variable for stored items
-  if (todos !== null) { // if the value of the array is not null, the array will be populated with the todos stored items
+  if (todos !== null) {
+    // if the value of the array is not null, the array will be populated with the todos stored items
     plannerArr = todos;
-  } else { // otherwise populate a blank array with a placeholder
+  } else {
+    // otherwise populate a blank array with a placeholder
     plannerArr = new Array(9);
     plannerArr[1] = "Class Begins";
   }
@@ -27,7 +29,7 @@ $(document).ready(function () {
 
     //build hour/time column
     let timeOfDayDiv = $("<div>");
-    timeOfDayDiv.addClass("col-md-2 toD");
+    timeOfDayDiv.addClass("col-2 toD");
 
     //hour span
     const hourDaySpan = $("<span>");
@@ -38,28 +40,32 @@ $(document).ready(function () {
     let mornAft = "";
 
     // Logic for 12/24HR clock conversion, ensures 9-11AM, 12-5PM. plannerHour to be displayed in span
-    if (hour > 12) { // If hour(24 hour clock) > 12, plannerHour(to be displayed) is reduced by 12 to ensure 12 hour clock format and PM is added
-      plannerHour = hour - 12; 
+    if (hour > 12) {
+      // If hour(24 hour clock) > 12, plannerHour(to be displayed) is reduced by 12 to ensure 12 hour clock format and PM is added
+      plannerHour = hour - 12;
       mornAft = "pm";
-    } else if (hour === 12) { //Needed in order to avoid noon showing as 12AM
+    } else if (hour === 12) {
+      //Needed in order to avoid noon showing as 12AM
       plannerHour = hour;
       mornAft = "pm";
-    } else if (hour < 12) { //If hour (24 hour clock) is less than 12, plannerHour(to be displayed) is set equal and AM is added
+    } else if (hour < 12) {
+      //If hour (24 hour clock) is less than 12, plannerHour(to be displayed) is set equal and AM is added
       plannerHour = hour;
       mornAft = "am";
     }
 
     //add hour display to hourDaySpan
-    hourDaySpan.text(plannerHour + mornAft);
+    hourDaySpan.text(plannerHour + mornAft); //Updates the hour portion of planner with hours 9-5AM/PM and appends row to container and time of day col
     $("#planner").append(rowD);
     rowD.append(timeOfDayDiv);
     timeOfDayDiv.append(hourDaySpan);
 
-    //add input section for user todos, utilizes the hh format from moment.js, 0-23 hour format instead of 1-24, to assign past, present, future classes
+    //add input section for user todos, utilizes the kk format from moment.js, 1-24 hour format instead of 0-23, to assign past, present, future classes
     userInput = $("<textarea>");
     userInput.attr("id", "textarea-" + x);
-    userInput.val(plannerArr[x]);
+    userInput.val(plannerArr[x]); //establishes the user input textarea and sets values equal to planner array for stored todos
     if (hour < currentH24) {
+      // assigns timeslots as either past present or future css styles based on hour vs. moment.js current hour kk format
       userInput.addClass("past");
     } else if (hour === currentH24) {
       userInput.addClass("present");
@@ -68,24 +74,24 @@ $(document).ready(function () {
     }
     userInput.addClass("description");
     userInputDiv = $("<div>");
-    userInputDiv.addClass("col-md-9 pr-0 mr-0 pl-0 ml-0");
+    userInputDiv.addClass("col-9 pr-0 mr-0 pl-0 ml-0"); // establishes column for the textarea
 
-    rowD.append(userInputDiv);
+    rowD.append(userInputDiv); //appends the column div and textarea to the row div
     userInputDiv.append(userInput);
 
     //set-up save button column
-    saveBtnDiv = $("<div>");
-    saveBtnDiv.addClass("col-md-1 saveSec pl-0 ml-0");
+    saveBtnDiv = $("<div>"); //establishes column for the save button
+    saveBtnDiv.addClass("col-1 saveSec pl-0 ml-0");
 
     //add save button, source FontAwesome
     let saveBtn = $("<i>");
     saveBtn.attr("class", "fas fa-save saveBtn");
-    saveBtn.attr("id", "saveMe-" + x);
-    saveBtn.attr("save-index", x);
+    saveBtn.attr("id", "saveMe-" + x); //establishes index for storing todos
+    saveBtn.attr("save-index", x); //establishes index for storing todos
 
     //add save button to each row
     rowD.append(saveBtnDiv);
-    saveBtnDiv.append(saveBtn);
+    saveBtnDiv.append(saveBtn); //appends the column and save button to the row
   }
   //on click event for save icon
   $(document).on("click", "i", function (event) {
